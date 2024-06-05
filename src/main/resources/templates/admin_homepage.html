@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Mainpage</title>
+    <link rel="stylesheet" href="/css/admin_homepage.css">
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header-placeholder"></header>
+<main>
+    <h2>Orders</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>Product Name</th>
+            <th>Size</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.product.productName}"></td>
+            <td th:text="${order.size}"></td>
+            <td th:text="${order.quantity}"></td>
+            <td th:text="${order.product.price}"></td>
+            <td th:text="${order.quantity * order.product.price}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+                <button th:onclick="updateOrder(this.getAttribute('data-order-id'))" th:data-order-id="${order.orderId}">Update</button>
+                <button th:onclick="deleteOrder(this.getAttribute('data-order-id'))" th:data-order-id="${order.orderId}">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+<script src="/js/script.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function updateOrder(orderId) {
+        $.ajax({
+            type: 'PUT',
+            url: '/admin_homepage/' + orderId,
+            success: function(response) {
+                // Reload the page or update the table as needed
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert(xhr.responseText);
+                // Handle error
+            }
+        });
+    }
+    function deleteOrder(orderId) {
+    $.ajax({
+        type: 'DELETE',
+        url: '/admin_homepage/' + orderId, // Replace this URL with your actual endpoint
+        success: function(response) {
+            // Handle success response
+            location.reload();
+            alert("Order deleted successfully.");
+            // Optionally, you can reload the page or update the UI as needed
+        },
+        error: function(xhr, status, error) {
+            // Handle error response
+            alert("Error deleting order:", xhr.responseText);
+            // Optionally, display an error message or handle the error in another way
+        }
+    });
+}
+    /*]]>*/
+</script>
+
+<script src="js/load-file.js"></script>
+</body>
+</html>

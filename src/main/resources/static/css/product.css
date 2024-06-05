@@ -1,0 +1,27 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.product-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #555;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1.5rem;
+}
+
+.carousel-inner img {
+    object-fit: cover;
+}
+
+#cartTable th, #cartTable td {
+    text-align: center;
+}

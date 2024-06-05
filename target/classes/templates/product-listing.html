@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - Football Kit Store</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/product-listing.css">
+</head>
+<body>
+<header id="header-placeholder"></header>
+
+<section class="product-listing">
+    <div class="container">
+        <h2>All Products</h2>
+        <div class="product-grid">
+            <div th:each="product : ${products}" class="product-item">
+                <a th:href="@{'/product/' + ${product.productId}}" style="color: inherit; text-decoration: none;">
+                    <h3 th:text="${product.productName}">Product Name</h3>
+                    <img th:src="${product.images}" alt="Product Image"/>
+                    <p th:text="${product.description}">Product Description</p>
+                    <span th:text="RM+${product.price}">Product Price</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/js/load-file.js"></script>
+</body>
+</html>
